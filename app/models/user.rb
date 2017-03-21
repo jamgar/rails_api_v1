@@ -6,5 +6,16 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password     
-  validates :password, presence: true, length: { minimum: 6 }               
+  validates :password, presence: true, length: { minimum: 6 }   
+  validates :auth_token, uniqueness: true   
+
+  def generate_auth_token
+    token = SecureRandom.hex
+    self.update_columns(auth_token: token)
+    token
+  end    
+
+  def invalidate_auth_token
+    self.update_columns(auth_token: nil)
+  end    
 end

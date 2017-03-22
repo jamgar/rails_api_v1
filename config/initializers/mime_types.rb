@@ -2,3 +2,7 @@
 
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
+
+# For JSON:API Content-Type response - Added by JEG
+
+Mime::Type.register "application/vnd.api+json", :json

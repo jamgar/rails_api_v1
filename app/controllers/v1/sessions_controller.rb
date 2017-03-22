@@ -4,7 +4,7 @@ class V1::SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
-      auth_token = user.generate_auth_token
+      auth_token = user.auth_token
       render json: { auth_token: auth_token }, status: 200
     else
       render json: { errors: "Invalid email or password" }, status: 422
@@ -13,7 +13,7 @@ class V1::SessionsController < ApplicationController
 
   def destroy
     user = current_user
-    user.invalidate_auth_token
+    user.regenerate_auth_token
     head :ok
   end
 end

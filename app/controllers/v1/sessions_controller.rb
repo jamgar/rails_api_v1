@@ -1,5 +1,5 @@
 class V1::SessionsController < ApplicationController
-  skip_before_action :require_login!, only: [:create, :destroy]
+  # skip_before_action :require_login!, only: [:create, :destroy]
 
   def create
     user = User.find_by(email: params[:session][:email])
